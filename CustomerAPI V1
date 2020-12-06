@@ -1,0 +1,112 @@
+swagger: '2.0'
+
+info:
+  title: Customer API
+  description: This is a customer API. It produces ?
+  version: '1.0.0'
+  contact:
+    name: Chanan W
+    url: http://www.pluralsight.com
+    email: chwelt88@gmail.com
+  license:
+    name: Apache '2.0'
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /customer:
+    get:
+      summary: reads a customer's data
+      operationId: getCustomer
+      description: "This operation provides a view of customer's view in JSON.
+                    The operation uses the customer's Id to identify the customer in the query string."
+      produces: 
+        - application/json
+        - text/xml
+      consumes: 
+        - application/json
+      parameters:
+        - in: query #  query, path, headers, body, or form-data
+          name: customerId
+          description: pass an optional customer id.
+          required: true 
+          type: integer # boolean, string, object, array, ... 
+      responses: 
+        200:
+          description: search results match 
+          schema: # or header  
+            type: object 
+            properties:
+              customerId:
+                type: integer
+              accountValue:
+                type: number
+              customerName:
+                type: string
+              active:
+                type: boolean
+              address:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  street:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  zip:
+                    type: string
+              contacts:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    phone:
+                      type: string
+        404: 
+          description: employee with this id does not exist
+definitions:
+  Customer:
+    type: object 
+    properties:
+      customerId:
+        type: integer
+      accountValue:
+        type: number
+      customerName:
+        type: string
+      active:
+        type: boolean
+      address:
+        type: object
+        properties:
+          name:
+            type: string
+          street:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          zip:
+            type: string
+      contacts:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /cwelt/CustomerAPI/1.0.0
+schemes:
+ - https
