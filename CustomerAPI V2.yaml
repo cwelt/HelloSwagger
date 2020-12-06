@@ -1,0 +1,152 @@
+swagger: '2.0'
+
+info:
+  title: Customer API
+  description: This is a customer API. It produces ?
+  version: '1.0.0'
+  contact:
+    name: Chanan W
+    url: http://www.pluralsight.com
+    email: chwelt88@gmail.com
+  license:
+    name: Apache '2.0'
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /customer:
+    get:
+      summary: reads a customer's data
+      operationId: getCustomer
+      description: "This operation provides a view of customer's view in JSON.
+                    The operation uses the customer's Id to identify the customer in the query string."
+      produces: 
+        - application/json
+        - text/xml
+      consumes: 
+        - application/json
+      parameters:
+        - in: query #  query, path, headers, body, or form-data
+          name: customerId
+          description: pass an optional customer id.
+          required: true 
+          type: integer # boolean, string, object, array, ... 
+      responses: 
+        200:
+          description: search results match 
+          schema: # schema or header  
+            $ref: "#/definitions/Customer"
+        404: 
+          description: employee with this id does not exist
+    post:
+      summary: adds a new customer
+      operationId: addCustomer # name of operation
+      description: Add a new customer to the system
+      produces:
+        - text/plain
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          description: the new customer data JSON.
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
+      responses: 
+        '201':
+          description: "successful operation"
+          schema:
+            type: integer
+        '405':
+          description: Invalid Input
+  /customer/{customerId}:
+    put:
+      summary:  update existing customer
+      operationId: updateCustomer
+      description: Updates an existing customer with given Id
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: customerRecord
+          description: the updated customer data
+          required: true
+          schema:
+            $ref: "#/definitions/Customer"
+        - in: path
+          name: customerId
+          description: the id of the customer to use
+          required: true
+          type: integer  
+      responses:
+        200:
+          description: Success.
+        400:
+          description: Customer Not Found
+        500:
+          description: Internal Server Error
+    delete:
+      summary: delete an existing customer 
+      operationId: deleteCustomer
+      description: Deletes an existing customer in the database. 
+      produces: 
+        - application/json
+      parameters:
+        - in: path 
+          name: customerId
+          description: the id of the customer to delete
+          required: true
+          type: integer 
+      responses:
+        200: 
+          description: The customer was deleted 
+          schema: 
+            $ref: "#/definitions/Customer"
+        400:
+          description: Customer Not Found 
+        500:
+          description: Internal Server Error 
+          
+definitions:
+  Customer:
+    type: object 
+    properties:
+      customerId:
+        type: integer
+      accountValue:
+        type: number
+      customerName:
+        type: string
+      active:
+        type: boolean
+      address:
+        type: object
+        properties:
+          name:
+            type: string
+          street:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          zip:
+            type: string
+      contacts:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+              
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /cwelt/CustomerAPI/1.0.0
+schemes:
+ - https
+ 
+# full path is https://virtserver.swaggerhub.com/cwelt/CustomerAPI/1.0.0/{custId}
