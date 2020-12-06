@@ -148,5 +148,25 @@ host: virtserver.swaggerhub.com
 basePath: /cwelt/CustomerAPI/1.0.0
 schemes:
  - https
- 
 # full path is https://virtserver.swaggerhub.com/cwelt/CustomerAPI/1.0.0/{custId}
+
+securityDefinitions:
+  BasicAuth:
+    type: basic
+  ApiKeyAuth:
+    type:
+      apiKey
+    in: header
+    name: X-API-Key
+  OAuth2: 
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://exmaple.com/oauth/token
+    scopes:
+      read: Grants read access
+      write: Grants write access 
+      admin: Grants read and write access to adminstriative info
+security: 
+  - OAuth2: []
+  
